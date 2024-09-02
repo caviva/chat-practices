@@ -19,7 +19,8 @@
           class="avatar"
         />
         <div class="message-content">
-          <strong>{{ message.sender }}:</strong> {{ message.text }}
+          <strong>{{ message.sender }}:</strong>
+          <span v-html="formatMessage(message.text)"></span>
         </div>
       </div>
       <div v-if="isTyping" class="typing-indicator">
@@ -69,6 +70,10 @@ export default {
     this.scrollToBottom();
   },
   methods: {
+    formatMessage(text) {
+      const urlPattern = /(https?:\/\/[^\s]+)/g;
+      return text.replace(urlPattern, '<a href="$1" target="_blank">$1</a>');
+    },
     async loadSystemPrompt() {
       try {
         const response = await fetch("/system-prompt.txt");
