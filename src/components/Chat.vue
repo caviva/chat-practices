@@ -71,7 +71,7 @@ export default {
   },
   methods: {
     formatMessage(text) {
-      const urlPattern = /(https?:\/\/[^\s]+)/g;
+      const urlPattern = /(https?:\/\/[^\s.,!?)]+(?:\.[^\s.,!?)]+)*\/?)/g;
       return text.replace(urlPattern, '<a href="$1" target="_blank">$1</a>');
     },
     async loadSystemPrompt() {
