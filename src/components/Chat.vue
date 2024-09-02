@@ -88,7 +88,7 @@ export default {
         });
 
         const initialMessage =
-          "Hola, soy Mia. La Maestra en inteligencia artificial creada por NuHo de Caracol Televisión y LUMO Media Lab. ¿Estás interesado en conocer sobre el proceso ideación de CreActivos? o ¿quieres preguntarme sobre otros temas de inteligencia artificial? ";
+          "Hola, soy Mia. La Maestra en inteligencia artificial creada por NuHo de Caracol Televisión y LUMO Media Lab. ¿Estás interesado en conocer sobre el proceso ideación de CreActivos?";
         this.messages.push({
           sender: "Mia",
           text: initialMessage,
