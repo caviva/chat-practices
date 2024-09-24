@@ -4,18 +4,12 @@
       <div
         v-for="(message, index) in messages"
         :key="index"
-        :class="['message', message.sender === 'Yo' ? 'user-message' : 'bot-message']"
+        :class="['message', message.sender === 'Me' ? 'user-message' : 'bot-message']"
       >
         <img
-          v-if="message.sender === 'Mia'"
-          src="https://avatar.iran.liara.run/public/85"
-          alt="Mia Avatar"
-          class="avatar"
-        />
-        <img
-          v-else
-          src="https://avatar.iran.liara.run/public/44"
-          alt="User Avatar"
+          v-if="message.sender === 'UFSCar'"
+          src="https://api.dicebear.com/9.x/bottts/svg"
+          alt="UFSCar Avatar"
           class="avatar"
         />
         <div class="message-content">
@@ -25,8 +19,8 @@
       </div>
       <div v-if="isTyping" class="typing-indicator">
         <img
-          src="https://avatar.iran.liara.run/public/85"
-          alt="Mia Avatar"
+          src="https://api.dicebear.com/9.x/bottts/svg"
+          alt="UFSCar Avatar"
           class="avatar"
         />
         <div class="dots">
@@ -40,10 +34,10 @@
       <input
         v-model="userInput"
         @keyup.enter="debouncedSendMessage"
-        :placeholder="isLoading ? 'Cargando...' : 'Escribe tu mensaje...'"
+        :placeholder="isLoading ? 'Loading...' : 'Type your message...'"
         :disabled="isLoading"
       />
-      <button @click="debouncedSendMessage" :disabled="isLoading">Enviar</button>
+      <button @click="debouncedSendMessage" :disabled="isLoading">Send</button>
     </div>
   </div>
 </template>
@@ -78,7 +72,7 @@ export default {
       try {
         const response = await fetch("/system-prompt.txt");
         if (!response.ok) {
-          throw new Error("Error al cargar el archivo del prompt del sistema.");
+          throw new Error("Error loading the system prompt file.");
         }
         const systemPrompt = await response.text();
 
@@ -88,9 +82,9 @@ export default {
         });
 
         const initialMessage =
-          "Hola, soy Mia. La Maestra en inteligencia artificial creada por NuHo de Caracol Televisión y LUMO Media Lab. ¿Estás interesado en conocer sobre el proceso ideación de CreActivos?";
+          "Hello! I'm a virtual assistant here to guide you through best practices in software testing. I'm ready to discuss and explore the topic with you.";
         this.messages.push({
-          sender: "Mia",
+          sender: "UFSCar",
           text: initialMessage,
         });
 
@@ -101,11 +95,10 @@ export default {
 
         this.scrollToBottom();
       } catch (error) {
-        console.error("Error cargando el cerebro de Mia: ", error);
+        console.error("Error loading UFSCar's brain: ", error);
         this.messages.push({
-          sender: "Mia",
-          text:
-            "No pude cargar el cerebro de Mia. Por favor, intenta recargar la página.",
+          sender: "UFSCar",
+          text: "I couldn't load UFSCar's brain. Please try reloading the page.",
         });
       }
     },
@@ -123,7 +116,7 @@ export default {
         content: this.userInput,
       };
       this.messages.push({
-        sender: "Yo",
+        sender: "Me",
         text: this.userInput,
       });
       this.conversationHistory.push(userMessage);
@@ -140,7 +133,7 @@ export default {
           },
           {
             headers: {
-              Authorization: `Bearer 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`,
+              Authorization: `Bearer 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`,
               "Content-Type": "application/json",
             },
           }
@@ -148,7 +141,7 @@ export default {
 
         const aiResponse = completion.data.choices[0].message.content;
         this.messages.push({
-          sender: "Mia",
+          sender: "UFSCar",
           text: aiResponse,
         });
 
@@ -157,10 +150,10 @@ export default {
           content: aiResponse,
         });
       } catch (error) {
-        console.error("Error al obtener la respuesta de OpenAI:", error);
+        console.error("Error getting response from OpenAI:", error);
         this.messages.push({
-          sender: "Mia",
-          text: "¡Ups! Tengo problemas ahorita, por favor intenta de nuevo más tarde.",
+          sender: "UFSCar",
+          text: "Oops! I'm having trouble right now, please try again later.",
         });
       } finally {
         this.isLoading = false;
