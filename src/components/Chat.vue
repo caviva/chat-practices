@@ -319,4 +319,23 @@ button:disabled {
     padding: 8px;
   }
 }
+
+.message-content ul,
+.message-content ol {
+  margin: 0;
+  padding-left: 20px;
+}
+
+.message-content li {
+  margin-bottom: 5px;
+}
+
+.message-content a {
+  color: #007bff;
+  text-decoration: underline;
+}
+
+.message-content a:hover {
+  text-decoration: none;
+}
 </style>
