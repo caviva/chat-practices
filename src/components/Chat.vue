@@ -66,7 +66,18 @@ export default {
   methods: {
     formatMessage(text) {
       const urlPattern = /(https?:\/\/[^\s.,!?)]+(?:\.[^\s.,!?)]+)*\/?)/g;
-      return text.replace(urlPattern, '<a href="$1" target="_blank">$1</a>');
+      let formattedText = text.replace(urlPattern, '<a href="$1" target="_blank">$1</a>');
+
+      formattedText = formattedText
+        .replace(/(^|\n)- (.*?)(\n|$)/g, "$1<ul><li>$2</li></ul>$3")
+        .replace(/(^|\n)\* (.*?)(\n|$)/g, "$1<ul><li>$2</li></ul>$3");
+
+      formattedText = formattedText.replace(
+        /(^|\n)[0-9]+\. (.*?)(\n|$)/g,
+        "$1<ol><li>$2</li></ol>$3"
+      );
+
+      return formattedText;
     },
     async loadSystemPrompt() {
       try {
